@@ -113,8 +113,7 @@ export const projects = [
     segments: [
       { label: "Project Summary", slug: "project-summary", template: "projectHome" },
       { label: "Research", slug: "research", template: "projectWork" },
-      { label: "Creative Process", slug: "creative-process", template: "projectWork" },
-      { label: "Execution", slug: "execution", template: "projectWork" }
+      { label: "Creative Process", slug: "creative-process", template: "projectWork" }
     ]
   }
 ] as const satisfies readonly Project[];
@@ -152,7 +151,11 @@ export function getProjectDefaultSegment(project: PortfolioProject): ProjectSegm
 }
 
 export function getProjectDefaultPath(project: PortfolioProject): string {
-  return `/work/${project.slug}/${project.defaultSegmentSlug}`;
+  return `/work/${project.slug}`;
+}
+
+function getSegmentSubsections(segment: ProjectSegment): readonly ProjectSubsection[] {
+  return segment.subsections ?? [];
 }
 
 export function resolveProjectRoute(
@@ -192,7 +195,9 @@ export function resolveProjectRoute(
     };
   }
 
-  const subsection = segment.subsections?.find((candidate) => candidate.slug === subsectionSlug);
+  const subsection = getSegmentSubsections(segment).find(
+    (candidate) => candidate.slug === subsectionSlug
+  );
 
   if (!subsection) {
     return { status: "notFound" };
@@ -217,7 +222,7 @@ export function getProjectStaticParams(): Array<{ projectSlug: string; slug: str
     for (const segment of project.segments) {
       params.push({ projectSlug: project.slug, slug: [segment.slug] });
 
-      for (const subsection of segment.subsections ?? []) {
+      for (const subsection of getSegmentSubsections(segment)) {
         params.push({
           projectSlug: project.slug,
           slug: [segment.slug, subsection.slug]

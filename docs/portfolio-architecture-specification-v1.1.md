@@ -3,7 +3,7 @@
 **Version:** 1.1 (Draft)  
 **Status:** Under Review  
 **Repository:** `dbrown1976/dan-portfolio-react`  
-**Last updated:** 2026-06-24
+**Last updated:** 2026-06-25
 
 ---
 
@@ -124,7 +124,6 @@ Work
     Project Summary
     Research
     Creative Process
-    Execution
 
 About
 
@@ -157,19 +156,31 @@ Routes should be generated from the information architecture wherever practical.
 | `/work/{projectSlug}/{segmentSlug}` | Project segment route |
 | `/work/{projectSlug}/{segmentSlug}/{subsectionSlug}` | Project subsection route, where tertiary nav exists |
 
-### Default route behaviour
+### Canonical project route behaviour
 
-The project default route should render, or redirect to, the default segment for that project.
+The short project route is the canonical project home route.
 
-| Project | Default project route | Default segment route |
-|---|---|---|
-| Next Generation Authoring | `/work/next-generation-authoring` | `/work/next-generation-authoring/overview` |
-| Design System | `/work/design-system` | `/work/design-system/project-summary` |
-| Cloud Event Management | `/work/cloud-event-management` | `/work/cloud-event-management/project-summary` |
-| Alert Notification | `/work/alert-notification` | `/work/alert-notification/project-summary` |
-| Maps | `/work/maps` | `/work/maps/project-summary` |
+It should render the project overview/home page directly.
 
-Implementation decision to confirm: whether default project routes should redirect to the default segment route or render it directly. Deep linking must work either way.
+Explicit default segment routes may remain valid for now, but should eventually redirect to the short project route.
+
+| Project | Canonical project home route | Explicit default segment route | Future behaviour for explicit default segment route |
+|---|---|---|---|
+| Next Generation Authoring | `/work/next-generation-authoring` | `/work/next-generation-authoring/overview` | Redirect to `/work/next-generation-authoring` |
+| Design System | `/work/design-system` | `/work/design-system/project-summary` | Redirect to `/work/design-system` |
+| Cloud Event Management | `/work/cloud-event-management` | `/work/cloud-event-management/project-summary` | Redirect to `/work/cloud-event-management` |
+| Alert Notification | `/work/alert-notification` | `/work/alert-notification/project-summary` | Redirect to `/work/alert-notification` |
+| Maps | `/work/maps` | `/work/maps/project-summary` | Redirect to `/work/maps` |
+
+### Parent segment route behaviour
+
+Project segments with tertiary navigation may remain valid as direct routes for now, but should eventually redirect to the first subsection route.
+
+| Parent segment route | Future redirect target |
+|---|---|
+| `/work/next-generation-authoring/understanding-the-problem` | `/work/next-generation-authoring/understanding-the-problem/understanding` |
+| `/work/next-generation-authoring/building-the-system` | `/work/next-generation-authoring/building-the-system/building-the-system` |
+| `/work/next-generation-authoring/improvements-rollout` | `/work/next-generation-authoring/improvements-rollout/improvements` |
 
 ---
 
@@ -226,7 +237,6 @@ This table converts the public information architecture into route-addressable s
 | Maps | `maps` | Project Summary | `project-summary` | — | — | Project Home | No |
 | Maps | `maps` | Research | `research` | — | — | Project Work | No |
 | Maps | `maps` | Creative Process | `creative-process` | — | — | Project Work | No |
-| Maps | `maps` | Execution | `execution` | — | — | Project Work | No |
 
 ---
 
@@ -247,6 +257,20 @@ Figma layer names are used to locate design structure and components. This speci
 | Improvements & rollout | `improvements-rollout` | Improvements & rollout |
 | Design Language & System | `design-language-system` | Design language & system |
 | Project Summary | `project-summary` | Project Summary / Project summary |
+
+### Confirmed Figma-to-IA label mappings
+
+| Figma wording | Public IA label |
+|---|---|
+| `H2. 2 Problem Definition` | Understanding |
+| `H2. 4 Evidence` | Direction |
+| `H2. 10 Reflects` | Reflections |
+| `Research Design System` | Discovery |
+| `Foundations I` | Design Language & System |
+| `Adoption Design System` | Execution |
+| `Process CEM` | Creative Process |
+| `Process Maps` | Creative Process |
+| `Process AN` | Creative Process |
 
 ### Implementation rule
 
@@ -277,7 +301,7 @@ Used on the Work page.
 | Selection model | One card represents one project |
 | Interaction | Selecting a card navigates to the project default route |
 | Data | Card content is driven by project data |
-| Destination | Project Home route or default segment route |
+| Destination | Canonical project home route |
 
 ### Level 3: Segmented Control
 
@@ -716,13 +740,12 @@ Codex previously assessed implementation readiness at **5/10** and recommended o
 
 - Approve technical stack.
 - Approve final route/content map.
-- Confirm Figma naming against public IA labels.
+- Maintain the confirmed Figma-to-IA label mapping.
 - Approve component registry.
 - Approve responsive breakpoint behaviour.
 - Approve token implementation strategy.
 - Produce and approve an asset manifest.
-- Confirm final CV rendering approach.
-- Confirm contact URLs.
+- Defer final CV PDF source, contact URLs, asset layer names, alt text, exact image exports and component variants to the asset manifest / visual implementation phase.
 - Confirm QA/test tooling.
 
 ---
@@ -732,10 +755,9 @@ Codex previously assessed implementation readiness at **5/10** and recommended o
 | Topic | Question | Owner |
 |---|---|---|
 | Technical stack | What framework/build/routing/styling approach should be used? | Codex to recommend; Dan to approve |
-| Default project routes | Should `/work/{project}` redirect to default segment or render it directly? | Codex to recommend; Dan to approve |
-| CV rendering | Use exported page images inline plus PDF download, or inline PDF viewer? | Dan to approve |
-| Asset manifest | Which exact assets should be exported from Figma? | Codex to propose; Dan to approve |
-| Alt text | What alt text should be assigned to project imagery? | Dan |
+| CV rendering | Use exported page images inline plus PDF download, or inline PDF viewer? | Defer to asset manifest / visual implementation phase |
+| Asset manifest | Which exact assets should be exported from Figma? | Defer to asset manifest / visual implementation phase |
+| Alt text | What alt text should be assigned to project imagery? | Defer to asset manifest / visual implementation phase |
 | Motion | Should Figma motion be implemented now or deferred? | Dan/Codex |
 | Visual regression | What tool should be used to compare implementation with Figma? | Codex to recommend |
 | Hosting | Vercel, Netlify, GitHub Pages or other? | Codex to recommend; Dan to approve |
@@ -754,6 +776,11 @@ Codex previously assessed implementation readiness at **5/10** and recommended o
 | 2026-06-24 | Do not create a hero variant for Image Container | Hero styling belongs to the image asset or parent layout, not the image component |
 | 2026-06-24 | Defer asset export until an asset manifest exists | Prevent incorrect asset naming, sizing and folder structure |
 | 2026-06-24 | Use public IA labels and this spec for route slugs, not raw Figma frame names | Avoid leaking internal naming inconsistencies into URLs |
+| 2026-06-25 | Maps has only three project pages: Project Summary, Research and Creative Process | Corrects the canonical IA and removes the unsupported Maps execution route |
+| 2026-06-25 | Use the short project route as the canonical project home route | Keeps project URLs concise while preserving explicit default segment routes as temporary valid routes |
+| 2026-06-25 | Eventually redirect explicit default segment routes to the short project route | Avoids duplicate canonical project home URLs |
+| 2026-06-25 | Eventually redirect parent segment routes with tertiary navigation to their first subsection | Avoids ambiguous selected states when a segment requires subsection-level content |
+| 2026-06-25 | Record confirmed Figma-to-IA label mappings | Allows implementation to use public IA labels while locating the correct Figma frames |
 
 ---
 
