@@ -49,7 +49,7 @@ test.describe("scaffold route smoke tests", () => {
 
     await expect(page.getByText("Project Home Template")).toBeVisible();
     await expect(page.getByText("Selected segment")).toBeVisible();
-    await expect(page.getByText("Overview")).toBeVisible();
+    await expect(page.getByText("Overview").first()).toBeVisible();
     await expect(page.getByText("Route kind")).toBeVisible();
     await expect(page.getByText("projectDefault")).toBeVisible();
   });
