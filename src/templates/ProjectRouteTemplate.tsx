@@ -9,7 +9,6 @@ type ProjectRouteTemplateProps = {
 export function ProjectRouteTemplate({ route }: ProjectRouteTemplateProps) {
   const templateName =
     route.segment.template === "projectHome" ? "Project Home Template" : "Project Work Template";
-  const selectedState = route.subsection?.label ?? route.segment.label;
 
   return (
     <PagePlaceholderTemplate
@@ -31,10 +30,12 @@ export function ProjectRouteTemplate({ route }: ProjectRouteTemplateProps) {
             <dt>Selected segment</dt>
             <dd>{route.segment.label}</dd>
           </div>
-          <div>
-            <dt>Selected route state</dt>
-            <dd>{selectedState}</dd>
-          </div>
+          {route.subsection ? (
+            <div>
+              <dt>Selected route state</dt>
+              <dd>{route.subsection.label}</dd>
+            </div>
+          ) : null}
           <div>
             <dt>Route kind</dt>
             <dd>{route.routeKind}</dd>

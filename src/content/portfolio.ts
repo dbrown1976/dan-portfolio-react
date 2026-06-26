@@ -18,8 +18,15 @@ export type Project = {
   readonly slug: string;
   readonly presentation: ProjectPresentation;
   readonly defaultSegmentSlug: string;
+  readonly workThumbnail: {
+    readonly src: string;
+  };
   readonly segments: readonly ProjectSegment[];
 };
+
+export const workInProgressThumbnail = {
+  src: "/assets/shared/work-wip-card-thumbnail.png"
+} as const;
 
 export const projects = [
   {
@@ -27,6 +34,9 @@ export const projects = [
     slug: "next-generation-authoring",
     presentation: "flagship",
     defaultSegmentSlug: "overview",
+    workThumbnail: {
+      src: "/assets/projects/next-generation-authoring/work-next-gen-authoring-card-thumbnail.png"
+    },
     segments: [
       {
         label: "Overview",
@@ -70,6 +80,9 @@ export const projects = [
     slug: "design-system",
     presentation: "standard",
     defaultSegmentSlug: "project-summary",
+    workThumbnail: {
+      src: "/assets/projects/design-system/work-design-system-card-thumbnail.png"
+    },
     segments: [
       { label: "Project Summary", slug: "project-summary", template: "projectHome" },
       { label: "Discovery", slug: "discovery", template: "projectWork" },
@@ -86,6 +99,9 @@ export const projects = [
     slug: "cloud-event-management",
     presentation: "standard",
     defaultSegmentSlug: "project-summary",
+    workThumbnail: {
+      src: "/assets/projects/cloud-event-management/work-cloud-event-management-card-thumbnail.png"
+    },
     segments: [
       { label: "Project Summary", slug: "project-summary", template: "projectHome" },
       { label: "Research", slug: "research", template: "projectWork" },
@@ -98,6 +114,9 @@ export const projects = [
     slug: "alert-notification",
     presentation: "standard",
     defaultSegmentSlug: "project-summary",
+    workThumbnail: {
+      src: "/assets/projects/alert-notification/work-alert-notification-card-thumbnail.png"
+    },
     segments: [
       { label: "Project Summary", slug: "project-summary", template: "projectHome" },
       { label: "Research", slug: "research", template: "projectWork" },
@@ -110,6 +129,9 @@ export const projects = [
     slug: "maps",
     presentation: "standard",
     defaultSegmentSlug: "project-summary",
+    workThumbnail: {
+      src: "/assets/projects/maps/work-maps-card-thumbnail.png"
+    },
     segments: [
       { label: "Project Summary", slug: "project-summary", template: "projectHome" },
       { label: "Research", slug: "research", template: "projectWork" },
