@@ -18,12 +18,12 @@ export function ProjectCard({ fallbackThumbnailSrc, href, project }: ProjectCard
   return (
     <article className={styles.card}>
       <Link className={styles.link} href={href}>
-        <span className={styles.imageFrame} aria-hidden="true">
+        <span className={styles.imageFrame}>
           <Image
-            alt=""
+            alt={`${project.title} case study thumbnail`}
             className={styles.image}
             fill
-            sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+            sizes="(max-width: 639px) calc(100vw - 2rem), (max-width: 1023px) 50vw, 24rem"
             src={thumbnailSrc}
           />
         </span>
