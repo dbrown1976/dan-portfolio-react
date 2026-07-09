@@ -27,6 +27,15 @@ const projectRoutes: readonly SmokeRoute[] = [
 
 const routes = [...staticRoutes, ...projectRoutes] as const;
 
+const activeNavigationRoutes = [
+  { path: "/", activeLabel: "Home" },
+  { path: "/work", activeLabel: "Work" },
+  { path: "/work/next-generation-authoring", activeLabel: "Work" },
+  { path: "/cv", activeLabel: "CV" },
+  { path: "/about", activeLabel: "About" },
+  { path: "/contact", activeLabel: "Contact" }
+] as const;
+
 async function expectRouteToRender(page: Page, route: SmokeRoute) {
   const response = await page.goto(route.path);
 
@@ -49,12 +58,14 @@ test.describe("scaffold route smoke tests", () => {
 
     await expect(page.getByText("Project Home Template")).toBeVisible();
     await expect(page.getByText("Selected segment")).toBeVisible();
-    await expect(page.getByText("Overview").first()).toBeVisible();
+    await expect(page.getByText("Overview")).toBeVisible();
     await expect(page.getByText("Route kind")).toBeVisible();
     await expect(page.getByText("projectDefault")).toBeVisible();
   });
 
-  test("project subsection route resolves selected segment and subsection state", async ({ page }) => {
+  test("project subsection route resolves selected segment and subsection state", async ({
+    page
+  }) => {
     await expectRouteToRender(page, projectRoutes[1]);
 
     await expect(page.getByText("Project Work Template")).toBeVisible();
@@ -63,6 +74,33 @@ test.describe("scaffold route smoke tests", () => {
     await expect(page.getByText("Discovery")).toBeVisible();
     await expect(page.getByText("subsection")).toBeVisible();
   });
+});
+
+test.describe("primary navigation", () => {
+  test("uses the intended link order", async ({ page }) => {
+    await page.goto("/work");
+
+    const navigation = page.getByRole("navigation", { name: "Primary navigation" });
+    await expect(navigation.getByRole("link")).toHaveText([
+      "Home",
+      "Work",
+      "CV",
+      "About",
+      "Contact"
+    ]);
+  });
+
+  for (const route of activeNavigationRoutes) {
+    test(`${route.path} marks only ${route.activeLabel} as active`, async ({ page }) => {
+      await page.goto(route.path);
+
+      const navigation = page.getByRole("navigation", { name: "Primary navigation" });
+      const activeLinks = navigation.locator('[aria-current="page"]');
+
+      await expect(activeLinks).toHaveCount(1);
+      await expect(activeLinks).toHaveText(route.activeLabel);
+    });
+  }
 });
 
 test.describe("scaffold accessibility smoke tests", () => {
