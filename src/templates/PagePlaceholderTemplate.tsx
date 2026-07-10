@@ -5,6 +5,7 @@ type PagePlaceholderTemplateProps = {
   eyebrow: string;
   title: string;
   description: string;
+  navigation?: ReactNode;
   children?: ReactNode;
 };
 
@@ -12,10 +13,12 @@ export function PagePlaceholderTemplate({
   eyebrow,
   title,
   description,
+  navigation,
   children
 }: PagePlaceholderTemplateProps) {
   return (
     <main className={styles.page}>
+      {navigation}
       <section>
         <p className={styles.eyebrow}>{eyebrow}</p>
         <h1 className={styles.title}>{title}</h1>

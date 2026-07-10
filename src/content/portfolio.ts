@@ -18,6 +18,7 @@ export type Project = {
   readonly slug: string;
   readonly presentation: ProjectPresentation;
   readonly defaultSegmentSlug: string;
+  readonly sectionNavigation?: boolean;
   readonly workThumbnail: {
     readonly src: string;
   };
@@ -34,6 +35,7 @@ export const projects = [
     slug: "next-generation-authoring",
     presentation: "flagship",
     defaultSegmentSlug: "overview",
+    sectionNavigation: true,
     workThumbnail: {
       src: "/assets/projects/next-generation-authoring/work-next-gen-authoring-card-thumbnail.png"
     },
@@ -174,6 +176,10 @@ export function getProjectDefaultSegment(project: PortfolioProject): ProjectSegm
 
 export function getProjectDefaultPath(project: PortfolioProject): string {
   return `/work/${project.slug}`;
+}
+
+export function hasProjectSectionNavigation(project: Project): boolean {
+  return project.sectionNavigation === true;
 }
 
 function getSegmentSubsections(segment: ProjectSegment): readonly ProjectSubsection[] {
