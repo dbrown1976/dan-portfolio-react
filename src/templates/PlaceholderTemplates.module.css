@@ -63,6 +63,7 @@
 }
 
 .projectPage {
+  align-content: start;
   gap: var(--spacing-lg);
 }
 

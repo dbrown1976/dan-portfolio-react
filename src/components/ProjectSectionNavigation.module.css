@@ -1,6 +1,6 @@
 .navigation {
   display: grid;
-  gap: var(--spacing-xs);
+  gap: var(--spacing-2xl);
   justify-items: center;
   min-width: 0;
   width: 100%;
@@ -18,7 +18,7 @@
 }
 
 .navigation > nav + nav {
-  justify-self: end;
+  justify-self: start;
   width: 100%;
 }
 
@@ -45,14 +45,15 @@
 .segmentList {
   align-items: center;
   background: var(--color-grey-sm);
-  border-radius: 0.75rem;
+  border-radius: var(--spacing-sm);
+  box-sizing: border-box;
   flex-wrap: wrap;
   gap: 0.125rem;
+  height: var(--spacing-2xl);
   justify-content: center;
   max-width: 100%;
-  min-height: 2.5rem;
   min-width: 6rem;
-  padding: 0.25rem;
+  padding: var(--spacing-2xs);
 }
 
 .segmentLink,
@@ -71,11 +72,12 @@
 .segmentLink {
   align-items: center;
   border-radius: var(--radius-md);
+  box-sizing: border-box;
   color: var(--color-text);
   font-weight: 400;
+  height: 2.5rem;
   justify-content: center;
   line-height: 1.5;
-  min-height: 2rem;
   padding: 0 var(--spacing-sm);
   text-align: center;
 }
@@ -94,33 +96,38 @@
 
 .subsectionList {
   align-items: center;
-  gap: var(--spacing-lg);
-  justify-content: flex-end;
-  margin-left: auto;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  justify-content: flex-start;
+  margin-left: 0;
+  width: 100%;
 }
 
 .subsectionLink {
   align-items: center;
-  background: transparent;
-  border-bottom: 0.125rem solid transparent;
-  color: var(--color-text-muted);
+  background: var(--color-background);
+  border: 1px solid #e3e3e3;
+  border-radius: var(--spacing-2xs);
+  box-sizing: border-box;
+  color: #1e1e1e;
   font-weight: 400;
-  line-height: 1.2;
-  padding: 0 0 var(--spacing-xs);
-  text-align: right;
+  height: 33px;
+  line-height: 15px;
+  padding: var(--spacing-xs) var(--spacing-lg);
+  text-align: left;
 }
 
 .subsectionLink:hover {
-  background: transparent;
-  border-color: var(--color-grey-md);
-  color: var(--color-text);
+  background: #f8f8f8;
+  border-color: #8a8a8a;
+  color: #1e1e1e;
 }
 
 .subsectionLink[aria-current="page"] {
-  background: transparent;
-  border-color: currentColor;
+  background: var(--color-background);
+  border-color: #484848;
   box-shadow: none;
-  color: var(--color-text);
+  color: #0f0f0f;
   font-weight: 500;
 }
 
@@ -145,12 +152,7 @@
 
   .segmentLink {
     flex: 1;
-    min-height: 1.875rem;
     padding-inline: var(--spacing-xs);
     white-space: normal;
-  }
-
-  .subsectionList {
-    gap: var(--spacing-md);
   }
 }
