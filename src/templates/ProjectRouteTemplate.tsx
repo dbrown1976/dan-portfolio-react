@@ -7,6 +7,8 @@ type ProjectRouteTemplateProps = {
 };
 
 export function ProjectRouteTemplate({ route }: ProjectRouteTemplateProps) {
+  const hasSectionNavigation = hasProjectSectionNavigation(route.project);
+
   return (
     <main className={`${styles.page} ${styles.projectPage}`}>
       <section className={styles.projectHero} aria-labelledby="project-title">
@@ -15,8 +17,10 @@ export function ProjectRouteTemplate({ route }: ProjectRouteTemplateProps) {
         </h1>
       </section>
 
-      {hasProjectSectionNavigation(route.project) ? (
-        <ProjectSectionNavigation route={route} />
+      {hasSectionNavigation ? (
+        <div className={styles.projectNavigation}>
+          <ProjectSectionNavigation route={route} />
+        </div>
       ) : null}
 
       <section className={styles.panel} aria-labelledby="route-state-heading">

@@ -8,7 +8,7 @@
 
 .header {
   display: grid;
-  gap: var(--spacing-md);
+  gap: 0;
   max-width: 46rem;
 }
 
@@ -17,13 +17,13 @@
   font-size: 0.875rem;
   font-weight: 700;
   line-height: 1.4;
-  margin: 0;
+  margin: 0 0 var(--spacing-md);
 }
 
 .title {
-  font-size: 4rem;
-  line-height: 0.95;
-  margin: 0;
+  font-size: 2rem;
+  line-height: 1;
+  margin: 0 0 var(--spacing-xl);
 }
 
 .description {
@@ -62,14 +62,6 @@
   .page {
     gap: var(--spacing-2xl);
     padding: var(--spacing-2xl) var(--spacing-md) var(--spacing-3xl);
-  }
-
-  .header {
-    gap: var(--spacing-sm);
-  }
-
-  .title {
-    font-size: 3rem;
   }
 
   .description {

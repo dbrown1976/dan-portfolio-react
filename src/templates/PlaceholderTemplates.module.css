@@ -64,7 +64,11 @@
 
 .projectPage {
   align-content: start;
-  gap: var(--spacing-lg);
+  gap: 0;
+}
+
+.pageHeader {
+  min-width: 0;
 }
 
 .eyebrow {
@@ -74,16 +78,21 @@
 }
 
 .title {
-  font-size: clamp(2rem, 6vw, 4rem);
+  font-size: 2rem;
   line-height: 1;
-  margin: 0;
+  margin: 0 0 var(--spacing-xl);
 }
 
 .projectHero {
   display: grid;
-  gap: var(--spacing-sm);
+  gap: 0;
   justify-items: center;
   text-align: center;
+}
+
+.projectNavigation {
+  margin-bottom: var(--spacing-lg);
+  width: 100%;
 }
 
 .description {

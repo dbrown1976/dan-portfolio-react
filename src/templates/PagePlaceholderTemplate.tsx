@@ -19,11 +19,11 @@ export function PagePlaceholderTemplate({
   return (
     <main className={styles.page}>
       {navigation}
-      <section>
+      <section className={styles.pageHeader}>
         <p className={styles.eyebrow}>{eyebrow}</p>
         <h1 className={styles.title}>{title}</h1>
+        <p className={styles.description}>{description}</p>
       </section>
-      <p className={styles.description}>{description}</p>
       {children ? <section className={styles.panel}>{children}</section> : null}
     </main>
   );
