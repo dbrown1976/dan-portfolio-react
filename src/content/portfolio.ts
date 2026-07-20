@@ -6,10 +6,28 @@ export type ProjectSubsection = {
   readonly slug: string;
 };
 
+export type ProjectOverviewSection = {
+  readonly heading: string;
+  readonly body: string;
+};
+
+export type ProjectOverviewContent = {
+  readonly intro: readonly string[];
+  readonly metaLine: string;
+  readonly heroImage: {
+    readonly src: string;
+    readonly alt: string;
+    readonly width: number;
+    readonly height: number;
+  };
+  readonly sections: readonly ProjectOverviewSection[];
+};
+
 export type ProjectSegment = {
   readonly label: string;
   readonly slug: string;
   readonly template: ProjectTemplate;
+  readonly overviewContent?: ProjectOverviewContent;
   readonly subsections?: readonly ProjectSubsection[];
 };
 
@@ -43,7 +61,40 @@ export const projects = [
       {
         label: "Overview",
         slug: "overview",
-        template: "projectHome"
+        template: "projectHome",
+        overviewContent: {
+          intro: [
+            "For any content management system, the content form is where much of the product’s value is realised: users create, structure, edit and validate the content that powers digital experiences.",
+            "Next Gen Authoring was a multi-year redesign of this core workflow, replacing an ageing form architecture with a scalable, modern authoring experience capable of supporting complex content structures, customer-specific schemas and evolving author expectations.",
+            "Because the interface was generated from each customer’s content model, the design challenge was not a single fixed form, but a scalable system of patterns that could make unknown structures usable.",
+            "The work resulted in higher comparative usability scores, unanimous preference in testing and full customer migration ahead of GA."
+          ],
+          metaLine: "Principal UX Designer • Amplience • 2023–26",
+          heroImage: {
+            src: "/assets/projects/next-generation-authoring/next-generation-authoring-overview-hero.png",
+            alt: "Next Generation Authoring interface showing the redesigned content editing experience",
+            width: 2112,
+            height: 1396
+          },
+          sections: [
+            {
+              heading: "Overview",
+              body: "This project redesigned the authoring experience in Amplience Dynamic Content so content teams could create, edit and manage complex structured content more easily."
+            },
+            {
+              heading: "The problem",
+              body: "The existing experience struggled with deeply nested content models, repeatable fields, validation states and long forms, leaving users unsure where they were in a form and what needed attention."
+            },
+            {
+              heading: "My role",
+              body: "I led the product design work, partnered with product and engineering, shaped reusable authoring patterns and connected the work back into the design system."
+            },
+            {
+              heading: "Outcome",
+              body: "NGA became the default authoring experience. Customers preferred it in validation, and the work created reusable patterns for complex authoring across the platform."
+            }
+          ]
+        }
       },
       {
         label: "Understanding the problem",

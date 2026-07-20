@@ -14,16 +14,22 @@ const staticRoutes: readonly SmokeRoute[] = [
   { path: "/contact", heading: "Contact" }
 ];
 
-const projectRoutes: readonly SmokeRoute[] = [
-  {
-    path: "/work/next-generation-authoring",
-    heading: "Next Generation Authoring"
-  },
-  {
-    path: "/work/next-generation-authoring/understanding-the-problem/discovery",
-    heading: "Next Generation Authoring"
-  }
-];
+const ngaDefaultRoute = {
+  path: "/work/next-generation-authoring",
+  heading: "Next Generation Authoring"
+} as const;
+
+const ngaOverviewRoute = {
+  path: "/work/next-generation-authoring/overview",
+  heading: "Next Generation Authoring"
+} as const;
+
+const ngaDiscoveryRoute = {
+  path: "/work/next-generation-authoring/understanding-the-problem/discovery",
+  heading: "Next Generation Authoring"
+} as const;
+
+const projectRoutes: readonly SmokeRoute[] = [ngaDefaultRoute, ngaOverviewRoute, ngaDiscoveryRoute];
 
 const routes = [...staticRoutes, ...projectRoutes] as const;
 
@@ -53,20 +59,43 @@ test.describe("scaffold route smoke tests", () => {
     });
   }
 
-  test("project default route resolves to the default segment", async ({ page }) => {
-    await expectRouteToRender(page, projectRoutes[0]);
+  test("project default route renders the overview content", async ({ page }) => {
+    await expectRouteToRender(page, ngaDefaultRoute);
 
-    await expect(page.getByRole("heading", { level: 2, name: "Route state" })).toBeVisible();
-    await expect(page.getByText("Selected segment")).toBeVisible();
-    await expect(page.getByRole("definition").filter({ hasText: /^Overview$/ })).toBeVisible();
-    await expect(page.getByText("Route kind")).toBeVisible();
-    await expect(page.getByText("projectDefault")).toBeVisible();
+    await expect(
+      page.getByText(
+        "For any content management system, the content form is where much of the product’s value is realised: users create, structure, edit and validate the content that powers digital experiences."
+      )
+    ).toBeVisible();
+    await expect(
+      page.getByRole("img", {
+        name: "Next Generation Authoring interface showing the redesigned content editing experience"
+      })
+    ).toBeVisible();
+    await expect(page.getByText("Principal UX Designer • Amplience • 2023–26")).toBeVisible();
+    await expect(page.getByText("Company")).toHaveCount(0);
+    await expect(page.getByRole("heading", { level: 2, name: "Overview" })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 2, name: "The problem" })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 2, name: "My role" })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 2, name: "Outcome" })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 2, name: "Route state" })).toHaveCount(0);
+  });
+
+  test("overview segment route renders the same overview content", async ({ page }) => {
+    await expectRouteToRender(page, ngaOverviewRoute);
+
+    await expect(
+      page.getByRole("img", {
+        name: "Next Generation Authoring interface showing the redesigned content editing experience"
+      })
+    ).toBeVisible();
+    await expect(page.getByText("Principal UX Designer • Amplience • 2023–26")).toBeVisible();
   });
 
   test("project subsection route resolves selected segment and subsection state", async ({
     page
   }) => {
-    await expectRouteToRender(page, projectRoutes[1]);
+    await expectRouteToRender(page, ngaDiscoveryRoute);
 
     await expect(page.getByRole("heading", { level: 2, name: "Route state" })).toBeVisible();
     await expect(
