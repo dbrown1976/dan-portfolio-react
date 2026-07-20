@@ -6,7 +6,6 @@ export function WorkTemplate() {
   return (
     <main className={styles.page}>
       <header className={styles.header}>
-        <p className={styles.eyebrow}>Selected work</p>
         <h1 className={styles.title}>Work</h1>
         <p className={styles.description}>
           Product design case studies spanning authoring, design systems, cloud operations, alerts
